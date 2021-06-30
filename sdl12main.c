@@ -345,16 +345,9 @@ int main(int argc, char** argv) {
 		if (start_fullscreen_f) fclose(start_fullscreen_f);
 	}
 
-#ifndef EMSCRIPTEN
-	while (running) mainLoop();
-#else
-#include <emscripten.h>
-	//FIXME: this assumes that the display refreshes at 60Hz
-	emscripten_set_main_loop(mainLoop, 0, 0);
-	emscripten_set_main_loop_timing(EM_TIMING_RAF, 2);
-	return 0;
-#endif
-
+	while (running) {
+		mainLoop();
+	}
 	if (game_state) SDL_free(game_state);
 	if (initial_game_state) SDL_free(initial_game_state);
 
@@ -534,27 +527,7 @@ static void mainLoop(void) {
 
 	SDL_Flip(screen);
 
-#if defined(_3DS) /*using SDL_DOUBLEBUF for videomode makes it so SDL_Flip waits for Vsync; so we dont have to delay manually*/ \
- || defined(EMSCRIPTEN) //emscripten_set_main_loop already sets the fps
-	SDL_Delay(1);
-#else
-	static int t = 0;
-	static unsigned frame_start = 0;
-	unsigned frame_end = SDL_GetTicks();
-	unsigned frame_time = frame_end-frame_start;
-	unsigned target_millis;
-	// frame timing for 30fps is 33.333... ms, but we only have integer granularity
-	// so alternate between 33 and 34 ms, like [33,33,34,33,33,34,...] which averages out to 33.333...
-	if (t < 2) target_millis = 33;
-	else       target_millis = 34;
 
-	if (++t == 3) t = 0;
-
-	if (frame_time < target_millis) {
-		SDL_Delay(target_millis - frame_time);
-	}
-	frame_start = SDL_GetTicks();
-#endif
 }
 
 static int gettileflag(int, int);
