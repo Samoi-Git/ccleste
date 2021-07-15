@@ -239,7 +239,7 @@ static void* game_state = NULL;
 static Mix_Music* game_state_music = NULL;
 static void mainLoop(void);
 static FILE* TAS = NULL;
-
+/*
 int main(int argc, char** argv) {
 	SDL_CHECK(SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO) == 0);
 #if SDL_MAJOR_VERSION >= 2
@@ -365,7 +365,7 @@ int main(int argc, char** argv) {
 	SDL_Quit();
 	return 0;
 }
-
+*/
 #if SDL_MAJOR_VERSION >= 2
 /* These inputs aren't sent to the game. */
 enum {

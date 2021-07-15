@@ -25,8 +25,9 @@ ifneq ($(USE_FIXEDP),)
 	CFLAGS+=-DCELESTE_P8_FIXEDP
 	CELESTE_CC=$(CXX)
 else
-	OUT=cclestetest
+	OUT=celexplore
 	CELESTE_OBJ=celeste.o
+	CFLAGS+=-fpermissive
 	LDFLAGS+=-lm
 endif
 
@@ -36,12 +37,12 @@ endif
 
 all: $(OUT)
 
-$(OUT): module.c $(CELESTE_OBJ) celeste.h sdl20compat.inc.c
-	$(CC) $(CFLAGS) $(PYTHON_LOC) module.c $(CELESTE_OBJ) -o $(OUT) $(LDFLAGS)
+$(OUT): celexplore.cpp $(CELESTE_OBJ) celeste.h sdl20compat.inc.c sdl12main.c
+	$(CC) $(CFLAGS) $(PYTHON_LOC) $(CELESTE_OBJ) -o $(OUT) $(LDFLAGS)
 
 $(CELESTE_OBJ): celeste.c celeste.h
 	$(CELESTE_CC) $(CFLAGS) -c -o $(CELESTE_OBJ) celeste.c
 
 clean:
-	$(RM) ccleste cclestetest ccleste-fixedp celeste.o celeste-fixedp.o
+	$(RM) ccleste ccleste-fixedp celeste.o celeste-fixedp.o
 	make -f Makefile.3ds clean
