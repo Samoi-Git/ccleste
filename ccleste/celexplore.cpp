@@ -250,13 +250,11 @@ class CelesteGame {
 };
 int test(void) {
 	CelesteGame game = CelesteGame();
-	int x=0;
 	srand(time(NULL));
 
 	while (game.isRunning()) {
 		game.nextFrame(bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2));
 		SDL_Delay(16);
-		x++;
 	}
 	game.~CelesteGame();
 	return 0;

@@ -5,7 +5,6 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/SDL2",
-                "/home/samoi/anaconda3/include/python3.8 ",
                 "/home/samoi/anaconda3/lib/python3.8/site-packages/pybind11/include",
                 "/usr/include/python3.9"
             ],
