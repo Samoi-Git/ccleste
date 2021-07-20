@@ -34,11 +34,11 @@ endif
 ifneq ($(HACKED_BALLOONS),)
 	CFLAGS+=-DCELESTE_P8_HACKED_BALLOONS
 endif
-
+	
 all: $(OUT)
 
-$(OUT): celexplore.cpp $(CELESTE_OBJ) celeste.h sdl20compat.inc.c sdl12main.c
-	$(CC) $(CFLAGS) celexplore.cpp $(CELESTE_OBJ) -o $(OUT) $(LDFLAGS)
+$(OUT):  $(CELESTE_OBJ) celeste.h sdl20compat.inc.c sdl12main.c celexplore.cpp 
+	$(CC) $(CFLAGS) $(PYTHON_LOC) $(CELESTE_OBJ) -o $(OUT) $(LDFLAGS)
 
 $(CELESTE_OBJ): celeste.c celeste.h
 	$(CELESTE_CC) $(CFLAGS) -c -o $(CELESTE_OBJ) celeste.c

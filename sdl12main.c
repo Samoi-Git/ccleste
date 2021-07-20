@@ -490,23 +490,14 @@ static void mainLoop(void) {
 		}
 	}
 
-	if (!TAS) {
-		if (kbstate[SDLK_LEFT])  buttons_state |= (1<<0);
-		if (kbstate[SDLK_RIGHT]) buttons_state |= (1<<1);
-		if (kbstate[SDLK_UP])    buttons_state |= (1<<2);
-		if (kbstate[SDLK_DOWN])  buttons_state |= (1<<3);
-		if (kbstate[SDLK_z] || kbstate[SDLK_c] || kbstate[SDLK_n] || kbstate[SDLK_a]) buttons_state |= (1<<4);
-		if (kbstate[SDLK_x] || kbstate[SDLK_v] || kbstate[SDLK_m] || kbstate[SDLK_b]) buttons_state |= (1<<5);
-	} else if (TAS && !paused) {
-		static int t = 0;
-		t++;
-		if (t==1) buttons_state = 1<<4;
-		else if (t > 80) {
-			int btn;
-			fscanf(TAS, "%d,", &btn);
-			buttons_state = btn;
-		} else buttons_state = 0;
-	}
+	
+	if (kbstate[SDLK_LEFT])  buttons_state |= (1<<0);
+	if (kbstate[SDLK_RIGHT]) buttons_state |= (1<<1);
+	if (kbstate[SDLK_UP])    buttons_state |= (1<<2);
+	if (kbstate[SDLK_DOWN])  buttons_state |= (1<<3);
+	if (kbstate[SDLK_z] || kbstate[SDLK_c] || kbstate[SDLK_n] || kbstate[SDLK_a]) buttons_state |= (1<<4);
+	if (kbstate[SDLK_x] || kbstate[SDLK_v] || kbstate[SDLK_m] || kbstate[SDLK_b]) buttons_state |= (1<<5);
+	
 
 	if (paused) {
 		const int x0 = PICO8_W/2-3*4, y0 = 8;
