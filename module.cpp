@@ -16,3 +16,4 @@ int main(void) {
     std::cout << "Test";
     return test();
 }
+
