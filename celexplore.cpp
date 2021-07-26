@@ -219,8 +219,9 @@ class CelesteGame {
 
 	}
 	
-	SDL_Surface* getScreen(void) {
-		return screen;
+	int getPixel(int x, int y) {
+		return getpixelint(x,y);
+		//heck
 	}
 
 
@@ -251,14 +252,15 @@ class CelesteGame {
 int test(void) {
 	CelesteGame game = CelesteGame();
 	srand(time(NULL));
-
+	bool x = true;
 	while (game.isRunning()) {
 		game.nextFrame(bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2));
 		SDL_Delay(16);
+		
 	}
 	game.~CelesteGame();
-	return 0;
-
-
-
+	return 0;	
+}
+int main(void) {
+	return test();
 }

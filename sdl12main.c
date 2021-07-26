@@ -50,21 +50,22 @@ static int scale = 4;
 #endif
 
 static const SDL_Color base_palette[16] = {
+	//colors slightly modified so each red value is unique
 	{0x00, 0x00, 0x00},
 	{0x1d, 0x2b, 0x53},
 	{0x7e, 0x25, 0x53},
-	{0x00, 0x87, 0x51},
+	{0x01, 0x87, 0x51},
 	{0xab, 0x52, 0x36},
 	{0x5f, 0x57, 0x4f},
 	{0xc2, 0xc3, 0xc7},
-	{0xff, 0xf1, 0xe8},
-	{0xff, 0x00, 0x4d},
-	{0xff, 0xa3, 0x00},
-	{0xff, 0xec, 0x27},
-	{0x00, 0xe4, 0x36},
+	{0xfe, 0xf1, 0xe8},
+	{0xfd, 0x00, 0x4d},
+	{0xfc, 0xa3, 0x00},
+	{0xfb, 0xec, 0x27},
+	{0x03, 0xe4, 0x36},
 	{0x29, 0xad, 0xff},
 	{0x83, 0x76, 0x9c},
-	{0xff, 0x77, 0xa8},
+	{0xfa, 0x77, 0xa8},
 	{0xff, 0xcc, 0xaa}
 };
 static SDL_Color palette[16];
@@ -100,6 +101,8 @@ static Uint32 getpixel(SDL_Surface *surface, int x, int y) {
 	/* Here p is the address to the pixel we want to retrieve */
 	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
 
+
+
 	switch(bpp) {
 		case 1:
 			return *p;
@@ -119,6 +122,23 @@ static Uint32 getpixel(SDL_Surface *surface, int x, int y) {
 		default:
 			return 0;	   /* shouldn't happen, but avoids warnings */
 	}
+}
+static int getpixelint(int x, int y) {
+	Uint8 *p = (Uint8 *)screen->pixels + y * screen->pitch + x * screen->format->BytesPerPixel;
+	Uint32 pixel = *(Uint32*)p;
+	Uint8 red = 0;
+	Uint8 *r;
+	Uint8 blue = 0;
+	Uint8 *b;
+	Uint8 green = 0;
+	Uint8 *g;
+	r = &red;
+	b = &blue;
+	g = &green;
+	SDL_GetRGB(pixel,screen->format,r, g,b);
+	return red;
+	
+
 }
 
 static void loadbmpscale(char* filename, SDL_Surface** s) {
@@ -231,7 +251,7 @@ static void OSDdraw(void) {
 }
 	
 static Mix_Music* current_music = NULL;
-static _Bool enable_screenshake = 1;
+static _Bool enable_screenshake = 0;
 static _Bool paused = 0;
 static _Bool running = 1;
 static void* initial_game_state = NULL;
@@ -376,7 +396,7 @@ enum {
 };
 static void ReadGamepadInput(Uint16* out_buttons);
 #endif
-
+/*
 static void mainLoop(void) {
 	const Uint8* kbstate = SDL_GetKeyState(NULL);
 		
@@ -511,16 +531,11 @@ static void mainLoop(void) {
 	}
 	OSDdraw();
 
-	/*for (int i = 0 ; i < 16;i++) {
-		SDL_Rect rc = {i*8*scale, 0, 8*scale, 4*scale};
-		SDL_FillRect(screen, &rc, i);
-	}*/
-
 	SDL_Flip(screen);
 
 
 }
-
+*/
 static int gettileflag(int, int);
 static void p8_line(int,int,int,int,unsigned char);
 
