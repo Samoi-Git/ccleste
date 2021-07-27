@@ -19,7 +19,7 @@ def calculate_time(func):
   
         # storing time after function execution
         end = time.time()
-        print("Total time taken in : ", func.__name__, end - begin)
+        print("Total time taken in : ", func.__name__, 1/(end - begin))
         return x
   
     return inner1
@@ -41,7 +41,7 @@ def maybe():
 @calculate_time
 def gameLoop(game):
     game.nextFrame(maybe(),maybe(),maybe(),maybe(),maybe(),maybe())
-    getScreen(game)
+
 
 if __name__ == '__main__':
     game = module.CelesteGame()

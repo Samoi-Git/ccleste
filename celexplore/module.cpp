@@ -1,4 +1,5 @@
 // cppimport
+//^above comment is required for cppimport
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include "celexplore.cpp"
@@ -19,7 +20,7 @@ PYBIND11_MODULE(module, m) {
 <%
 cfg['extra_compile_args'] = ['-fpermissive']
 cfg['dependencies'] = ['celexplore.cpp','sdl12main.c']
-cfg['libraries'] = ['SDL2','SDL2_mixer','python3.9','m']
+cfg['libraries'] = ['SDL2','SDL2_mixer','python3.8','m']
 cfg['include_dirs'] = ['/usr/include/SDL2']
 cfg['sources'] = ['celeste.c']
 setup_pybind11(cfg)
