@@ -1,5 +1,5 @@
 import cppimport.import_hook
-import module
+import heck as module
 import numpy as np
 import time
 import random
@@ -38,9 +38,11 @@ def getPixelSet(gm):
     return data
 def maybe():
     return bool(random.getrandbits(1))
-@calculate_time
 def gameLoop(game):
     game.nextFrame(maybe(),maybe(),maybe(),maybe(),maybe(),maybe())
+    game.renderScreen()
+    print(game.getLevel())
+    time.sleep(0.016)
 
 
 if __name__ == '__main__':

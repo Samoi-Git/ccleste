@@ -391,7 +391,7 @@ static void begin_game() {
 	load_room(0,0);
 }
 
-static int level_index() {
+int level_index() {
 	return room.x%8+room.y*8;
 }
 

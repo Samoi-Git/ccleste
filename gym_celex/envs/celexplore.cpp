@@ -53,7 +53,6 @@ class CelesteGame {
 			SDL_Rect rc = {60, 60};
 			SDL_BlitSurface(loading,NULL,screen,&rc);
 			
-			SDL_Flip(screen);
 			SDL_FreeSurface(loading);
 		} skip_load:
 
@@ -72,7 +71,6 @@ class CelesteGame {
 		} else {
 			Celeste_P8_set_rndseed((unsigned)(time(NULL) + SDL_GetTicks()));
 		}
-
 		Celeste_P8_init();
 
 		printf("ready\n");
@@ -214,7 +212,6 @@ class CelesteGame {
 			SDL_FillRect(screen, &rc, i);
 		}*/
 
-		SDL_Flip(screen);
 
 
 	}
@@ -222,6 +219,14 @@ class CelesteGame {
 	int getPixel(int x, int y) {
 		return getpixelint(x,y);
 		//heck
+	}
+
+	int getLevel() {
+		return level_index();
+	}
+
+	void renderScreen() {
+		SDL_Flip(screen);
 	}
 
 
@@ -252,7 +257,6 @@ class CelesteGame {
 int test(void) {
 	CelesteGame game = CelesteGame();
 	srand(time(NULL));
-	bool x = true;
 	while (game.isRunning()) {
 		game.nextFrame(bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2),bool(rand()%2));
 		SDL_Delay(16);
