@@ -10,13 +10,13 @@ class CelexEnv(gym.Env):
     
     def __init__(self):
         self.game = cel.CelesteGame()
-        #actions: 8 for dash(any direction), 2 for jumps (left/right), 8 for walk/drift(any direction)
-        self.action_space = spaces.Discrete(18)
+        #actions: 8 for dash(any direction), 3 for jumps (left/right/neither), 8 for walk/drift(any direction)
+        self.action_space = spaces.Discrete(19)
         self.level = 0
         
     def step(self, action):
         """Takes an int, to register one of 18 actions TODO"""
-        self.game.nextFrame(True,True,True,True,True,True)
+        self.takeAction(action)
         reward = self._get_reward()
         state = self.getScreen()
         end = False
@@ -47,4 +47,42 @@ class CelexEnv(gym.Env):
         self.renderScreen();
     def close(self):
         self.game = None
+
+    def takeAction(self,actionnum):
+        #actions 0-7 are movement, actions 8-15 are dashes, actions 16-18 are jumps
+        if actionnum>15:
+            if actionnum==16:
+                self.game.nextFrame(jump=True)
+            elif actionnum==17:
+                self.game.nextFrame(jump=True,left=True)
+            elif actionnum==18:
+                self.game.nextFrame(jump=True,right=True)
+            else:
+                raise ValueError("{} is not a valid action".format(actionnum))
+            return
+        elif actionnum>7:
+            daash=True
+            actionnum+=-8
+        else: daash=False
+
+        if actionnum==0:
+            self.game.nextFrame(dash=daash,up=True)
+        elif actionnum==1:
+            self.game.nextFrame(dash=daash,up=True,right=True)
+        elif actionnum==2:
+            self.game.nextFrame(dash=daash,right=True)
+        elif actionnum==3:
+            self.game.nextFrame(dash=daash,right=True,down=True)
+        elif actionnum==4:
+            self.game.nextFrame(dash=daash,down=True)
+        elif actionnum==5:
+            self.game.nextFrame(dash=daash,down=True,left=True)
+        elif actionnum==6:
+            self.game.nextFrame(dash=daash,left=True)
+        elif actionnum==7:
+            self.game.nextFrame(dash=daash,left=True,up=True)
+        else:
+            raise ValueError("{} is not a valid action".format)
+        return
+            
 

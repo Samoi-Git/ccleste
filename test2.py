@@ -22,7 +22,7 @@ def calculate_time(func):
     return inner1
 @calculate_time
 def loop():
-    env.step(0)
+    env.step(16)
     env.render()
 while True:
     loop()
