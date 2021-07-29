@@ -125,7 +125,7 @@ static Uint32 getpixel(SDL_Surface *surface, int x, int y) {
 }
 static int getpixelint(int x, int y) {
 	Uint8 *p = (Uint8 *)screen->pixels + y * screen->pitch + x * screen->format->BytesPerPixel;
-	Uint32 pixel = *(Uint32*)p;
+	Uint32 *pixel = *(Uint32*)p;
 	Uint8 red = 0;
 	Uint8 *r;
 	Uint8 blue = 0;

@@ -217,8 +217,7 @@ class CelesteGame {
 	}
 	
 	int getPixel(int x, int y) {
-		return getpixelint(x,y);
-		//heck
+		return getpixel(screen,x,y);
 	}
 
 	int getLevel() {

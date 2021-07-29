@@ -3,6 +3,7 @@ import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
 import logging
+import numpy as np
 logger = logging.getLogger(__name__)
 class CelexEnv(gym.Env):
     metadata = {'render.modes':['human']}
@@ -14,10 +15,22 @@ class CelexEnv(gym.Env):
         self.level = 0
         
     def step(self, action):
-        """Takes an int, to register one of 18 actions"""
+        """Takes an int, to register one of 18 actions TODO"""
+        self.game.nextFrame(True,True,True,True,True,True)
         reward = self._get_reward()
+        state = self.getScreen()
         end = False
-        return 0, reward, end, {}
+        return state, reward, end, {}
+
+    def getScreen(self):
+        data = np.zeros((128,128))
+        for x in range(128):
+            for y in range(128):
+                data[x][y] = self.game.getPixel(x,y)
+        return data
+
+
+
 
     def _get_reward(self):
         currentlevel = self.game.getLevel()
